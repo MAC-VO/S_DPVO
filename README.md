@@ -1,4 +1,17 @@
-# Deep Patch Visual Odometry
+# Deep Patch Visual Odometry (Adapted)
+
+
+> Adpated from Original Repo of DPVO: https://github.com/princeton-vl/DPVO
+>
+> Some modification are made to make it compatible with latest version of numpy.
+> 
+> For CUDA 12.1, use this docker file: https://hub.docker.com/repository/docker/yutianchen/dpvo_docker_img/general
+> 
+> with tag `cuda12.1`.
+>
+> For CUDA 11.1, use the same docker but with tag `latest`.
+
+
 This repository contains the source code for our paper:
 
 [Deep Patch Visual Odometry](https://arxiv.org/pdf/2208.04726.pdf)<br/>
