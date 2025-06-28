@@ -25,7 +25,8 @@ setup(
         CUDAExtension('lietorch_backends', 
             include_dirs=[
                 osp.join(ROOT, 'dpvo/lietorch/include'), 
-                osp.join(ROOT, 'thirdparty/eigen-3.4.0')],
+                osp.join(ROOT, 'thirdparty/eigen-3.4.0'),
+                '/usr/include/eigen3'],
             sources=[
                 'dpvo/lietorch/src/lietorch.cpp', 
                 'dpvo/lietorch/src/lietorch_gpu.cu',

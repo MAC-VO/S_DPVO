@@ -11,7 +11,7 @@ from .net import VONet
 from .utils import *
 from . import projective_ops as pops
 
-autocast = torch.cuda.amp.autocast
+autocast = torch.autocast
 Id = SE3.Identity(1, device="cuda")
 
 
@@ -211,7 +211,7 @@ class DPVO:
         net = torch.zeros(1, len(ii), self.DIM, **self.kwargs)
         coords = self.reproject(indicies=(ii, jj, kk))
 
-        with autocast(enabled=self.cfg.MIXED_PRECISION):
+        with autocast(enabled=self.cfg.MIXED_PRECISION, device_type="cuda"):
             corr = self.corr(coords, indicies=(kk, jj))
             ctx = self.imap[:,kk % (self.M * self.mem)]
             net, (delta, weight, _) = \
@@ -271,7 +271,7 @@ class DPVO:
         with Timer("other", enabled=self.enable_timing):
             coords = self.reproject()
 
-            with autocast(enabled=True):
+            with autocast(enabled=True, device_type="cuda"):
                 corr = self.corr(coords)
                 ctx = self.imap[:,self.kk % (self.M * self.mem)]
                 self.net, (delta, weight, _) = \
@@ -326,7 +326,7 @@ class DPVO:
 
         image = 2 * (image[None,None] / 255.0) - 0.5
         
-        with autocast(enabled=self.cfg.MIXED_PRECISION):
+        with autocast(enabled=self.cfg.MIXED_PRECISION, device_type="cuda"):
             fmap, gmap, imap, patches, _, clr = \
                 self.network.patchify(image,
                     patches_per_image=self.cfg.PATCHES_PER_FRAME, 
@@ -348,7 +348,7 @@ class DPVO:
         if self.n > 1:
             if self.cfg.MOTION_MODEL == 'DAMPED_LINEAR':
                 P1 = SE3(self.poses_[self.n-1])
-                P2 = SE3(self.poses_[self.n-2])
+                P2 = SE3(self.poses_[self.n-2])                
                 
                 xi = self.cfg.MOTION_DAMPING * (P1 * P2.inv()).log()
                 tvec_qvec = (SE3.exp(xi) * P1).data
@@ -393,10 +393,4 @@ class DPVO:
         elif self.is_initialized:
             self.update()
             self.keyframe()
-
-            
-
-
-
-
 
