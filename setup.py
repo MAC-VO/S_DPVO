@@ -1,6 +1,17 @@
 import os.path as osp
+
 from setuptools import setup, find_packages
-from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+
+try:
+    from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+except ModuleNotFoundError as exc:
+    raise ModuleNotFoundError(
+        "dpvo requires PyTorch to build its CUDA extensions. "
+        "Please install torch in your current environment and reinstall dpvo. "
+        "If you are using pip's build isolation, export TORCH_INSTALL_PATH or "
+        "DPVO_TORCH_PREFIX to the site-packages containing torch, or rerun with "
+        "`pip install -e . --no-build-isolation`."
+    ) from exc
 
 ROOT = osp.dirname(osp.abspath(__file__))
 
@@ -36,4 +47,3 @@ setup(
     cmdclass={
         'build_ext': BuildExtension
     })
-

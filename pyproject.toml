@@ -1,0 +1,44 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+    "wheel",
+]
+build-backend = "dpvo._build_backend"
+backend-path = ["."]
+
+[project]
+name = "dpvo"
+version = "0.0.0"
+description = "Deep Patch Visual Odometry baseline implementation."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Zachary Teed"},
+    {name = "Lahav Lipson"},
+    {name = "Jia Deng"},
+]
+keywords = [
+    "visual odometry",
+    "slam",
+    "deep learning",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.22",
+    "packaging>=21.3",
+    "torch>=1.12",
+    "torchvision>=0.13",
+    "tqdm>=4.64",
+    "yacs>=0.1.8",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["dpvo*"]
