@@ -1,6 +1,6 @@
 import torch
-from torch_scatter import scatter_sum
 
+from .scatter_ops import scatter_sum
 from . import fastba
 from . import lietorch
 from .lietorch import SE3
