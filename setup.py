@@ -33,16 +33,8 @@ setup(
                 'cxx':  ['-O3'], 
                 'nvcc': ['-O3'],
             }),
-        CUDAExtension('lietorch_backends', 
-            include_dirs=[
-                osp.join(ROOT, 'dpvo/lietorch/include'), 
-                osp.join(ROOT, 'thirdparty/eigen-3.4.0'),
-                '/usr/include/eigen3'],
-            sources=[
-                'dpvo/lietorch/src/lietorch.cpp', 
-                'dpvo/lietorch/src/lietorch_gpu.cu',
-                'dpvo/lietorch/src/lietorch_cpu.cpp'],
-            extra_compile_args={'cxx': ['-O3'], 'nvcc': ['-O3'],}),
+        # lietorch_backends is now provided by standalone lietorch package
+        # (installed from DROID_SLAM/thirdparty/lietorch)
     ],
     cmdclass={
         'build_ext': BuildExtension

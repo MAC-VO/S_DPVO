@@ -6,7 +6,7 @@ import cv2
 import os
 import os.path as osp
 
-from ..lietorch import SE3
+from lietorch import SE3
 from .base import RGBDDataset
 
 # cur_path = osp.dirname(osp.abspath(__file__))

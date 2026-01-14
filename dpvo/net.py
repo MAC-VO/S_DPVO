@@ -6,8 +6,8 @@ from collections import OrderedDict
 
 from . import fastba
 from . import altcorr
-from . import lietorch
-from .lietorch import SE3
+import lietorch
+from lietorch import SE3
 
 from .extractor import BasicEncoder, BasicEncoder4
 from .blocks import GradientClip, GatedResidual, SoftAgg

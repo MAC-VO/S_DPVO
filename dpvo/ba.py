@@ -2,8 +2,8 @@ import torch
 
 from .scatter_ops import scatter_sum
 from . import fastba
-from . import lietorch
-from .lietorch import SE3
+import lietorch
+from lietorch import SE3
 
 from .utils import Timer
 
