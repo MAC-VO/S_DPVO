@@ -17,14 +17,16 @@ echo "Compiling for GPU architecture: $CUDA_ARCH"
 
 LIETORCH_PATH="$SCRIPT_DIR/../DROID_SLAM/thirdparty/lietorch"
 
-if python -c "import dpvo" 2>/dev/null && [[ "${FORCE_REBUILD:-0}" != "1" ]]; then
+# `-P` so Python doesn't auto-prepend CWD onto sys.path; otherwise the source
+# tree masks a missing pip install and the check always reports installed.
+if python -P -c "import dpvo" 2>/dev/null && [[ "${FORCE_REBUILD:-0}" != "1" ]]; then
     echo "[DPVO] Already installed, skipping. Use --force to reinstall."
     exit 0
 fi
 
 # Install standalone lietorch (shared between DPVO and DROID-SLAM)
 # Using DROID-SLAM's thirdparty lietorch as the canonical source
-if ! python -c "import lietorch" 2>/dev/null; then
+if ! python -P -c "import lietorch" 2>/dev/null; then
     if [ -d "$LIETORCH_PATH" ]; then
         echo "Installing lietorch from $LIETORCH_PATH..."
         pip install -v "$LIETORCH_PATH" --no-build-isolation
